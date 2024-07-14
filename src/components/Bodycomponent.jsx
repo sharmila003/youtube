@@ -1,6 +1,6 @@
 //import React from 'react'
 
-import TagList from "../lists";
+import TagList from "./lists";
 import { Feed } from "./Feed";
 
 export default function Bodycomponent() {
