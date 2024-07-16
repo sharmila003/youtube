@@ -63,7 +63,7 @@ const TagList = () => {
         <ChevronLeftIcon />
       </IconButton>
       <div className="flex overflow-hidden space-x-3">
-        {tags.slice(startIndex, startIndex + visibleTagsCount).map((tag, index) => (
+        {tags/*slice(startIndex, startIndex + visibleTagsCount)*/.map((tag, index) => (
           <button
             key={index}
             onClick={() => handleTagClick(tag)}

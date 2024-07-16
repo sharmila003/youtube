@@ -1,4 +1,5 @@
 
+import { setCategory } from '../slices/appslice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import youtubeicon from '../assets/youtubeicon.jpg';
@@ -6,12 +7,20 @@ import voiceicon from '../assets/searchbyvoiceicon.png';
 import creatoricon from '../assets/creatoricon.png';
 import notificationicon from '../assets/notificationicon.png';
 import pictureicon from '../assets/pictureicon.png';
-
+import { useDispatch } from 'react-redux';
+import { CiSearch } from 'react-icons/ci'; 
 
 function Header() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [input, setInput] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const searchVideo = () => {
+    dispatch(setCategory(input));
+    setInput("");
+  };
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -45,34 +54,28 @@ function Header() {
         />
       </div>
       <div className="flex items-center flex-grow justify-center">
-        <div className="relative flex items-center w-full max-w-xl">
-          <input
-            type="text"
-            className="p-2 border h-10 w-full rounded-l-full pr-5 pl-5"
-            placeholder="Search"
-          />
-          <button className="absolute right-0 top-0 h-10 px-4 bg-gray-100 border-l rounded-r-full">
-            <svg
-              className="w-6 h-6 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+        <div className="flex w-[60%] items-center">
+          <div className="flex w-[100%]">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+              placeholder="Search"
+              className="w-full py-2 px-4 border border-gray-400 rounded-l-full outline-none"
+            />
+            <button
+              onClick={searchVideo}
+              className="py-2 border border-gray-400 rounded-r-full px-4"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-4.35-4.35m-3.15-6.15a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
-          </button>
+              <CiSearch size="24px" />
+            </button>
+          </div>
+          <img
+            className="w-5 h-5 ml-3 cursor-pointer"
+            src={voiceicon}
+            alt="voiceicon"
+          />
         </div>
-        <img
-          className="w-5 h-5 ml-3 cursor-pointer"
-          src={voiceicon}
-          alt="voiceicon"
-        />
       </div>
       <div className="flex items-center space-x-6 relative">
         <img
@@ -115,3 +118,7 @@ function Header() {
 }
 
 export default Header;
+
+
+
+

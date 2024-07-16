@@ -1,7 +1,7 @@
 import  { useEffect } from 'react'
 import axios from "axios";
 import API_KEY, { YOUTUBE_VIDEO_API } from '../data/youtube';
-import VideoCart from './Videocart';
+import VideoCart from '../components/Videocard';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { setHomeVideo } from '../slices/appslice';
@@ -36,7 +36,7 @@ const VideoContainer = () => {
         } else {
             fetchVideoByCategory(category);
         }
-    }, [category]);
+    }, [category, fetchVideoByCategory, fetchingYoutubeVideo]);
 
     return (
         <div className='grid grid-cols-3 gap-3'>
