@@ -1,6 +1,6 @@
 
 import { setCategory } from '../slices/appslice';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import youtubeicon from '../assets/youtubeicon.jpg';
 import voiceicon from '../assets/searchbyvoiceicon.png';
@@ -8,17 +8,51 @@ import creatoricon from '../assets/creatoricon.png';
 import notificationicon from '../assets/notificationicon.png';
 import pictureicon from '../assets/pictureicon.png';
 import { useDispatch } from 'react-redux';
-import { CiSearch } from 'react-icons/ci'; 
+import { CiSearch } from 'react-icons/ci';
+import { auth } from '../firebase'; 
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { API_KEY } from '../data/youtube';
 
 function Header() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [input, setInput] = useState("");
+  const [user, setUser] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const searchVideo = () => {
-    dispatch(setCategory(input));
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const searchVideo = async () => {
+    if (input.trim() === "") return;
+
+    // eslint-disable-next-line no-undef
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${input}&type=video&key=${API_KEY}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setSearchResults(data.items);
+      dispatch(setCategory(input));
+    } catch (error) {
+      console.error("Error fetching YouTube videos:", error);
+    }
+
     setInput("");
   };
 
@@ -31,11 +65,15 @@ function Header() {
   };
 
   const handleRegister = () => {
-    navigate('/register'); // Replace with your registration page route
+    navigate('/register');
   };
 
   const handleSignIn = () => {
-    navigate('/signin'); // Replace with your sign-in page route
+    navigate('/signin');
+  };
+
+  const handleSignOut = async () => {
+    await signOut(auth);
   };
 
   return (
@@ -97,18 +135,29 @@ function Header() {
           />
           {showDropdown && (
             <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
-              <button
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={handleSignIn}
-              >
-                Sign In
-              </button>
-              <button
-                className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={handleRegister}
-              >
-                Register
-              </button>
+              {user ? (
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </button>
+              ) : (
+                <>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                    onClick={handleSignIn}
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                    onClick={handleRegister}
+                  >
+                    Register
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -118,6 +167,11 @@ function Header() {
 }
 
 export default Header;
+
+      
+
+
+
 
 
 

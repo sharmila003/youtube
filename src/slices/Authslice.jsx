@@ -24,4 +24,9 @@ const authSlice = createSlice({
 
 export const { login, logout, addToWatchLater } = authSlice.actions;
 
+export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const selectWatchLater = (state) => state.auth.watchLater;
+
+
+
 export default authSlice.reducer;
