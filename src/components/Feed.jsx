@@ -55,7 +55,7 @@ export const Feed = () => {
   return (
     <div className='ml-5 mr-5 w-[100%] flex flex-wrap col-3'>
       {videolist.map((item) => {
-        return <Videocard key={item.id} data={item} />;
+        return <Videocard key={item.id.videoId || item.id} data={item} />;
       })}
     </div>
   );
