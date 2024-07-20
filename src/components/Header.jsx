@@ -1,4 +1,4 @@
-
+import { setHomeVideo } from '../slices/appslice';
 import { setCategory } from '../slices/appslice';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,7 @@ function Header() {
     if (input.trim() === "") return;
 
     // eslint-disable-next-line no-undef
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${input}&type=video&key=${API_KEY}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${input}&type=video&key=${API_KEY}`;
 
     try {
       const response = await fetch(url);
@@ -48,7 +48,9 @@ function Header() {
       }
       const data = await response.json();
       setSearchResults(data.items);
-      dispatch(setCategory(input));
+       console.log(data.items)
+       dispatch(setHomeVideo(data.items))
+       dispatch(setCategory(input));
     } catch (error) {
       console.error("Error fetching YouTube videos:", error);
     }
