@@ -1,4 +1,3 @@
-//export  const  taglist = ["All","music","live","gaming", "news","learning","sports","travel","comedy","tech","movies"]
 
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
@@ -63,7 +62,7 @@ const TagList = () => {
         <ChevronLeftIcon />
       </IconButton>
       <div className="flex overflow-hidden space-x-3">
-        {tags/*slice(startIndex, startIndex + visibleTagsCount)*/.map((tag, index) => (
+        {tags.map((tag, index) => (
           <button
             key={index}
             onClick={() => handleTagClick(tag)}
@@ -89,3 +88,5 @@ const TagList = () => {
 };
 
 export default TagList;
+
+

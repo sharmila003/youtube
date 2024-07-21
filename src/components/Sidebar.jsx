@@ -1,7 +1,4 @@
 
-// Sidebar.jsx
-//import React from 'react';
-
 const Sidebar = () => {
   return (
     <div className="flex flex-col w-12.1 bg-white text-black">

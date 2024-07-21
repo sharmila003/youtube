@@ -5,7 +5,6 @@ import app from '../firebase';
 
 const auth = getAuth(app)
 
-
 export const signIn = createAsyncThunk(
   'userAuth/signin',
   async ({ email, password }, { rejectWithValue }) => {

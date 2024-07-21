@@ -32,14 +32,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import Videocard from './Videocard';
 import API_KEY from '../data/youtube';
 import { setHomeVideo} from '../slices/appslice';
-import  {selectVideoList }  from  '../slices/selectors';
+import {selectVideoList }  from  '../slices/selectors';
 
 
 export const Feed = () => {
   const dispatch = useDispatch();
-  const videolist = useSelector(selectVideoList);
+   const videolist = useSelector(selectVideoList);
    console.log(videolist);
-  useEffect(() => {
+   //const category = useSelector(selectCategoryList);
+    //console.log(category);
+   useEffect(() => {
     fetchvideos();
   }, []);
 

@@ -3,17 +3,15 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
         open:true, 
         video:[],
-        category:"All",
-        searchSuggestion:[],
-  };
-
+        category:"All", 
+        
+    };
 
 const appSlice = createSlice({
     name:"app",
-    initialState,
-        
+    initialState,  
     reducers:{
-        // action
+        // actions
         toggleSidebar:(state)=>{
             state.open = !state.open;
         },
@@ -23,11 +21,8 @@ const appSlice = createSlice({
         setCategory:(state,action)=>{
             state.category = action.payload;
         },
-        setSearchSuggestion:(state,action)=>{
-            state.searchSuggestion = action.payload;
-        }   
+       
     } 
 });
-export const {toggleSidebar,setHomeVideo,setCategory,setSearchSuggestion} = appSlice.actions;
-//export const selectVideoList = (state) => state.app.videoList;
+export const {toggleSidebar,setHomeVideo,setCategory} = appSlice.actions;
 export default appSlice.reducer;

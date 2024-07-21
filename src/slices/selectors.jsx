@@ -10,3 +10,4 @@ export const selectVideoList = createSelector(
     return appState.video || [];
   }
 );
+

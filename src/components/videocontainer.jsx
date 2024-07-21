@@ -12,7 +12,7 @@ const VideoContainer = () => {
     console.log(category);
     const dispatch = useDispatch();
   
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     const fetchingYoutubeVideo = useCallback(async () => {
         try {
             const res = await axios.get(`${YOUTUBE_VIDEO_API}`);

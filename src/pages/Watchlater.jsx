@@ -1,65 +1,3 @@
-//import React from 'react'
-
-/*import  Sidebar  from '../components/Sidebar';
-//import Bodycomponent from '../components/Bodycomponent';
-
-
-
- function Watchlater() {
-  return (
-    <div   className='app'>
-    <div   className="flex">
-       <Sidebar/>
-    
-    </div>
-  </div>
-  )
-}
-
-
-export default  Watchlater;*/
-
-
-
-/*import  Sidebar  from '../components/Sidebar';
-//import React from 'react';
-import { useSelector } from 'react-redux';
-import VideoCard from '../components/Videocard'; // Assuming you have a VideoCard component
-
-function WatchLater() {
-  const watchLaterlist = useSelector((state) => state.watchLaterlist.videos); // Ensure this matches your Redux state slice
- 
-  
-  console.log('watchLaterVideos:', watchLaterlist); 
-
-  if (!watchLaterlist || !Array.isArray(watchLaterlist))  {
-    // Handle the case when watchLaterVideos is undefined
-    return <p>Loading...</p>;
-  }
-
-
-  return (
-    <div className="app">
-      <div className="flex">
-        <Sidebar />
-        <div className="flex-1 p-4">
-          {watchLaterlist.length > 0 ? (
-            watchLaterlist.map((video) => (
-              <VideoCard key={video.id} data={video} /> // Render each video card
-            ))
-          ) : (
-            <p>No videos in Watch Later</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default WatchLater;*/
-
-
-
 
 import  { useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
@@ -105,3 +43,5 @@ function WatchLater() {
 }
 
 export default WatchLater;
+
+
