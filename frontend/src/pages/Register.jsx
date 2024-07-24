@@ -142,7 +142,7 @@ function Register() {
             </button>
           </form>
           <div className="my-4 text-center">
-            <p>Already have an account? <Link to="/signin" className="text-blue-500 hover:text-blue-700">Sign in</Link></p>
+            <p>Already have an account? <Link to="/signin" className="text-blue-500 hover:text-blue-700">Signin</Link></p>
           </div>
           <div className="flex items-center my-4">
             <div className="flex-grow border-t border-gray-300"></div>
