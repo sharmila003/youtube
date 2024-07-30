@@ -1,10 +1,10 @@
-
-import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import axios from 'axios';
+//import { db } from '../firebase';
+//import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signUp } from '../slices/UserAuth'; 
-import { saveUserData } from '../Firestore';
+//import { signUp } from '../slices/UserAuth'; 
+//import { saveUserData } from '../Firestore';
 import googleIcon from '../assets/googleicon.png'; 
 import facebookIcon from '../assets/facebookicon.png'; 
 import appleIcon from '../assets/appleicon.png'; 
@@ -15,11 +15,11 @@ function Register() {
 
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [emailId, setEmailId] = useState('');
+  const [emailid, setEmailid] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmpassword, setConfirmpassword] = useState('');
 
-  const handleSubmit = async (e) => {
+  /*const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Perform validation or additional checks here if needed
@@ -56,8 +56,33 @@ function Register() {
       console.error('Error registering:', error.message);
       alert('Error registering: ' + error.message);
     }
-  };
+  };*/
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      name,
+      phoneNumber,
+      emailid,
+      password,
+      confirmpassword,
+    };
+
+    console.log('Submitting user data:', userData);
+
+    try {
+      const response = await axios.post('http://localhost:8800/api/auth/register', userData);
+
+      console.log("User registered:", response.data);
+      alert('Registration successful!');
+      navigate("/"); // Redirect to homepage after successful registration
+    } catch (error) {
+      console.error('Error registering:', error.response ? error.response.data : error.message);
+      alert('Error registering: ' + (error.response ? error.response.data.message : error.message));
+    }
+  }
+  
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Left Side Image */}
@@ -101,9 +126,9 @@ function Register() {
               </label>
               <input
                 type="email"
-                id="emailId"
-                value={emailId}
-                onChange={(e) => setEmailId(e.target.value)}
+                id="emailid"
+                value={emailid}
+                onChange={(e) => setEmailid(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -128,8 +153,8 @@ function Register() {
               <input
                 type="password"
                 id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmpassword}
+                onChange={(e) => setConfirmpassword(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />

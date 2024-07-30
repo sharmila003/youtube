@@ -1,8 +1,8 @@
-
+import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+//import { signInWithEmailAndPassword } from 'firebase/auth';
+//import { auth } from '../firebase';
 import signin from '../assets/register.jpg';
 import googleIcon from '../assets/googleicon.png';
 import facebookIcon from '../assets/facebookicon.png';
@@ -11,7 +11,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { setLoginState } from '../slices/Authslice';
 
 function SignIn() {
-  const [email, setEmail] = useState('');
+  const [emailid, setEmailid] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function SignIn() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Get authentication status from Redux store
   console.log("isLoggedIn",isLoggedIn);
   
-  const handleSignIn = async (e) => {
+  /*const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       setError('');
@@ -38,7 +38,22 @@ function SignIn() {
       setError(errorMessage);
       //setIsLoggedIn(false);
     }
+  };*/
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      setError('');
+      const response = await axios.post('http://localhost:8800/api/auth/signin', { emailid, password });
+      console.log('User signed in:', response.data);
+      dispatch(setLoginState(true));
+      navigate('/'); // Redirect to home page 
+    } catch (error) {
+      console.error('Error signing in:', error.response ? error.response.data.message : error.message);
+      setError(error.response ? error.response.data.message : error.message);
+    }
   };
+  
+
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -61,8 +76,8 @@ function SignIn() {
               <input
                 type="email"
                 id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={emailid}
+                onChange={(e) => setEmailid(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
