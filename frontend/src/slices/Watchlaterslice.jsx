@@ -1,28 +1,49 @@
 
 // Watchlaterslice.jsx
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getWatchLaterVideos, saveVideoToWatchLater, deleteVideoFromWatchLater } from '../Firestore';
+import axios from 'axios';
 import { auth } from '../firebase';
 
 export const fetchWatchLater = createAsyncThunk('watchLaterlist/fetchWatchLater', async () => {
   const user = auth.currentUser;
   if (!user) return [];
-  
-  return await getWatchLaterVideos(user.uid);
+
+  const token = await user.getIdToken(true);
+  const response = await axios.get('/api/watch-later', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
 });
 
 export const addToWatchLater = createAsyncThunk('watchLaterlist/addToWatchLater', async (video) => {
   const user = auth.currentUser;
   if (!user) throw new Error('User not authenticated');
-  
-  return await saveVideoToWatchLater(user.uid, video);
+
+  const token = await user.getIdToken(true);
+  console.log('Fetch Watch Later Token:', token);
+  const response = await axios.post('/api/watch-later', { videoId: video.id }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
 });
 
 export const removeFromWatchLater = createAsyncThunk('watchLaterlist/removeFromWatchLater', async (videoId) => {
   const user = auth.currentUser;
   if (!user) throw new Error('User not authenticated');
 
-  await deleteVideoFromWatchLater(user.uid, videoId);
+  const token = await user.getIdToken(true);
+  await axios.delete(`/api/watch-later/${videoId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return videoId;
 });
 
@@ -57,5 +78,6 @@ const watchLaterSlice = createSlice({
 });
 
 export default watchLaterSlice.reducer;
+
 
 

@@ -1,62 +1,20 @@
 import axios from 'axios';
-//import { db } from '../firebase';
-//import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-//import { signUp } from '../slices/UserAuth'; 
-//import { saveUserData } from '../Firestore';
 import googleIcon from '../assets/googleicon.png'; 
 import facebookIcon from '../assets/facebookicon.png'; 
 import appleIcon from '../assets/appleicon.png'; 
 import bg3 from '../assets/bg3.jpg';
 
 function Register() {
+  
   const navigate = useNavigate();
-
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailid, setEmailid] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmpassword] = useState('');
 
-  /*const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Perform validation or additional checks here if needed
-
-    try {
-      const docRef = await addDoc(collection(db, 'users'), {
-        name,
-        phoneNumber,
-        emailId,
-        password
-      });
-
-      console.log("User registered with ID: ", docRef.id);
-      const user = await signUp(emailId, password);
-
-      // Optionally, you can save additional user details to Firestore or another database
-      // Replace this with your own logic to save user details
-      saveUserData({
-        name,
-        phoneNumber,
-        emailId,
-      });
-
-      // Reset form fields
-      setName('');
-      setPhoneNumber('');
-      setEmailId('');
-      setPassword('');
-      setConfirmPassword('');
-      console.log('User registered:', user);
-      alert('Registration successful!');
-      navigate("/"); // Redirect to homepage after successful registration
-    } catch (error) {
-      console.error('Error registering:', error.message);
-      alert('Error registering: ' + error.message);
-    }
-  };*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();

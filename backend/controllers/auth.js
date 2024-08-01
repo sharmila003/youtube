@@ -50,16 +50,17 @@ import jwt from "jsonwebtoken";
           if (!isCorrect) return next(createError(400, "Wrong Credentials!"));
           
           // Generate JWT token
-          const token = jwt.sign({ id: user._id }, process.env.JWT);
+          const token = jwt.sign({ id: user._id }, process.env.JWT,{ expiresIn: '1h' });
           const { password, ...others } = user._doc;
       
            // Send response with token and user data
           res
             .cookie("access_token", token, {
               httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
             })
             .status(200)
-            .json(others);
+            .json({ message: 'Logged in successfully', user: user._id });
       
           
         } catch (err) {

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-//import { signInWithEmailAndPassword } from 'firebase/auth';
-//import { auth } from '../firebase';
 import signin from '../assets/register.jpg';
 import googleIcon from '../assets/googleicon.png';
 import facebookIcon from '../assets/facebookicon.png';
@@ -19,26 +17,7 @@ function SignIn() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Get authentication status from Redux store
   console.log("isLoggedIn",isLoggedIn);
   
-  /*const handleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      setError('');
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log('User signed in:', user.uid);
-     // setIsLoggedIn(true);
-    
-    dispatch(setLoginState(true))
 
-     navigate('/'); // Redirect to home page 
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Error signing in:', errorCode, errorMessage);
-      setError(errorMessage);
-      //setIsLoggedIn(false);
-    }
-  };*/
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {

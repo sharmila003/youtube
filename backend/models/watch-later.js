@@ -9,7 +9,7 @@ const WatchLaterSchema = new Schema({
     required: true
   },
   videoId: {
-    type: String,
+    type: String, 
     required: true
   },
 }, { timestamps: true });

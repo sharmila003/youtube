@@ -10,7 +10,8 @@ import { GoDownload } from 'react-icons/go';
 import { BsThreeDotsVertical } from 'react-icons/bs'; 
 import { MdQueue, MdWatchLater, MdPlaylistAdd, MdNotInterested, MdReport, MdDoNotDisturb } from 'react-icons/md'; // Add appropriate icons
 import { useSelector,useDispatch } from 'react-redux'; 
-import { addToWatchLater } from '../slices/Watchlaterslice';
+import { addToWatchLater,fetchWatchLater } from '../slices/Watchlaterslice';
+
 
 
 function Watch() {
@@ -35,7 +36,7 @@ function Watch() {
 
   useEffect(() => {
     getSingleVideo();
-    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function to toggle dropdown visibility
@@ -49,7 +50,10 @@ function Watch() {
       navigate('/signin'); // Redirect to sign-in page if not logged in
     } else {
       // Add video to Watch Later list
-      dispatch(addToWatchLater(singleVideo));
+      dispatch(addToWatchLater(singleVideo))
+       
+        .then(() => {dispatch(fetchWatchLater()); })// Refresh the Watch Later list
+        .catch((error) => console.error('Error updating Watch Later list:', error));
       console.log('Video added to Watch Later list');
       setShowDropdown(false);
       navigate('/watch-later'); 
