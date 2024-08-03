@@ -10,26 +10,28 @@ export const fetchWatchLater = createAsyncThunk('watchLaterlist/fetchWatchLater'
 
   const token = await user.getIdToken(true);
   const response = await axios.get('/api/watch-later', {
-    headers: {
+   headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
+  console.log('Fetched Watch Later Data:', response.data);
   return response.data;
 });
 
 export const addToWatchLater = createAsyncThunk('watchLaterlist/addToWatchLater', async (video) => {
   const user = auth.currentUser;
+  console.log("currentuser",user)
   if (!user) throw new Error('User not authenticated');
 
   const token = await user.getIdToken(true);
   console.log('Fetch Watch Later Token:', token);
   const response = await axios.post('/api/watch-later', { videoId: video.id }, {
+    
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
+  console.log( response);
   return response.data;
 });
 
@@ -43,7 +45,7 @@ export const removeFromWatchLater = createAsyncThunk('watchLaterlist/removeFromW
       Authorization: `Bearer ${token}`,
     },
   });
-
+  console.log('Removed from Watch Later:', videoId);
   return videoId;
 });
 
@@ -78,6 +80,5 @@ const watchLaterSlice = createSlice({
 });
 
 export default watchLaterSlice.reducer;
-
 
 

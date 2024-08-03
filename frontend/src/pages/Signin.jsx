@@ -24,6 +24,7 @@ function SignIn() {
       setError('');
       const response = await axios.post('http://localhost:8800/api/auth/signin', { emailid, password });
       console.log('User signed in:', response.data);
+      //localStorage.setItem('access_token', response.data.token);
       dispatch(setLoginState(true));
       navigate('/'); // Redirect to home page 
     } catch (error) {

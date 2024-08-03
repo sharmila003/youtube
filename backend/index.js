@@ -10,12 +10,12 @@ import cookieParser from "cookie-parser";
 import cors from 'cors';
 
 dotenv.config();
-const app = express();
-const  port = 8800;
+  const app = express();
+  const  port =   8800;
 
 
 // Connect to MongoDB
-const connect = () => {
+   const connect = () => {
   mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
@@ -37,7 +37,11 @@ app.use("/api/users", userRoutes);
 app.use('/api/watch-later', watchLaterRoutes);
 
 
+
 app.listen(port, () => {
   connect();
   console.log("Connected to Server");
 });
+
+
+export  default  app;

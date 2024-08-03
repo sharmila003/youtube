@@ -61,7 +61,12 @@ import jwt from "jsonwebtoken";
             })
             .status(200)
             .json({ message: 'Logged in successfully', user: user._id });
-      
+             
+            /*res.status(200).json({
+              message: 'Logged in successfully',
+              token, // Include the token in the response
+              user: others
+            });*/
           
         } catch (err) {
           next(err);

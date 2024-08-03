@@ -4,6 +4,11 @@ import { verifyToken } from '../verifytoken.js';
 
 const router = express.Router();
 
+
+// Add this middleware to routes where authentication is required
+//router.use(verifyToken);
+
+
 // Add a video to the watch later list
 router.post('/', verifyToken, addToWatchLater);
 
