@@ -187,22 +187,21 @@ function Header() {
 
 export default Header;*/
 
-
-import { setHomeVideo } from '../slices/appslice';
-import { setCategory } from '../slices/appslice';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import youtubeicon from '../assets/youtubeicon.jpg';
-import voiceicon from '../assets/searchbyvoiceicon.png';
-import creatoricon from '../assets/creatoricon.png';
-import notificationicon from '../assets/notificationicon.png';
-import pictureicon from '../assets/pictureicon.png';
-import { useDispatch } from 'react-redux';
-import { CiSearch } from 'react-icons/ci';
-import { auth } from '../firebase'; 
+import { setHomeVideo } from "../slices/appslice";
+import { setCategory } from "../slices/appslice";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import youtubeicon from "../assets/youtubeicon.jpg";
+import voiceicon from "../assets/searchbyvoiceicon.png";
+import creatoricon from "../assets/creatoricon.png";
+import notificationicon from "../assets/notificationicon.png";
+import pictureicon from "../assets/pictureicon.png";
+import { useDispatch, useSelector } from "react-redux";
+import { CiSearch } from "react-icons/ci";
+import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { API_KEY } from '../data/youtube';
-import wishlisticon from '../assets/wishlisticon.png';
+import { API_KEY } from "../data/youtube";
+import wishlisticon from "../assets/wishlisticon.png";
 
 function Header() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -213,6 +212,8 @@ function Header() {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  console.log("bab", isLoggedIn);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -252,22 +253,23 @@ function Header() {
   };
 
   const handleRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   const handleSignIn = () => {
-    navigate('/signin');
+    navigate("/signin");
   };
 
   const handleSignOut = async () => {
     await signOut(auth);
   };
-  
+
   const handleWishlistClick = () => {
-    if (user) { // Check if user is authenticated
-      navigate('/watch-later');
+    if (user) {
+      // Check if user is authenticated
+      navigate("/watch-later");
     } else {
-      navigate('/signin');
+      navigate("/signin");
     }
   };
 
@@ -280,11 +282,7 @@ function Header() {
           alt="menuicon"
           onClick={toggleSidebar}
         />
-        <img
-          className="h-6 w-15"
-          src={youtubeicon}
-          alt="youtubeicon"
-        />
+        <img className="h-6 w-15" src={youtubeicon} alt="youtubeicon" />
       </div>
       <div className="flex items-center flex-grow justify-center">
         <div className="flex w-[60%] items-center">
@@ -368,7 +366,3 @@ function Header() {
 }
 
 export default Header;
-
-
-
-
