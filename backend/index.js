@@ -34,7 +34,7 @@ app.use(cookieParser())
 app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use('/api/watch-later', watchLaterRoutes);
+app.use("/api/watch-later", watchLaterRoutes);
 
 
 
